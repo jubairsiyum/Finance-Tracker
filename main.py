@@ -6,7 +6,7 @@ from classes.finance_tracker import FinanceTracker
 from classes.transaction import Transaction
 from classes.category import Category
 from classes.currency_converter import CurrencyConverter
-from classes.notification_system import NotificationSystem
+from classes.notification_system import Notification
 from classes.payment_method import PaymentMethod
 from classes.recurring_expense import RecurringExpense
 from classes.tax_calculator import TaxCalculator
@@ -30,7 +30,7 @@ def main():
     # Initialize other objects
     finance_tracker = FinanceTracker(user)
     converter = CurrencyConverter()
-    notification_system = NotificationSystem()
+    notification_system = Notification()
     payment_method = PaymentMethod()
     tax_calculator = TaxCalculator(tax_rate=0.15)  # Example tax rate
     goal_reward = GoalReward()
