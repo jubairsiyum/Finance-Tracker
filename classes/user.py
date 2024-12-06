@@ -1,3 +1,4 @@
+# Siyum's Code : 
 class User:
     def __init__(self, name, income, currency, password):
         self.name = name
