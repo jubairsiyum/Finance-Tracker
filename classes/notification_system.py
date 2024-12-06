@@ -1,10 +1,15 @@
 # Shakib's Code
 
-class Notification:
+class NotificationSystem:
     def __init__(self, message: str, recipient: str):
         """Initialize the notification with a message and recipient."""
         self.message: str = message
         self.recipient: str = recipient
+        self.notifications: list[str] = []  # List to store notifications
+    
+    def set_notification(self, message: str):
+        """Add a notification to the list."""
+        self.notifications.append(message)
 
     def send_notification(self) -> str:
         """Send the notification."""

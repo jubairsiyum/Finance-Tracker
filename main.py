@@ -6,7 +6,7 @@ from classes.finance_tracker import FinanceTracker
 from classes.transaction import Transaction
 from classes.category import Category
 from classes.currency_converter import CurrencyConverter
-from classes.notification_system import Notification
+from classes.notification_system import NotificationSystem
 from classes.payment_method import PaymentMethod
 from classes.recurring_expense import RecurringExpense
 from classes.tax_calculator import TaxCalculator
@@ -23,6 +23,8 @@ def main():
     currency = input("Enter your preferred currency (e.g., USD, EUR, GBP): ")
     password = input("Set your account password: ")
 
+
+    
     # Create User object
     user = User(name, income, currency, password)
     print(f"\nAccount created successfully for {user.get_name()}!")
@@ -30,10 +32,10 @@ def main():
     # Initialize other objects
     finance_tracker = FinanceTracker(user)
     converter = CurrencyConverter()
-    notification_system = Notification()
+    notification_system = NotificationSystem(message="Welcome to the Finance Tracker", recipient=name)
     payment_method = PaymentMethod()
     tax_calculator = TaxCalculator(tax_rate=0.15)  # Example tax rate
-    goal_reward = GoalReward()
+    #goal_reward = GoalReward()
     investments = []
     recurring_expenses = []
 
@@ -145,15 +147,19 @@ def main():
                 print(f"Error: {e}")
 
         elif choice == "10":
-            # Notifications
+        # Notifications
             print("\n--- Notifications ---")
-            for notification in notification_system.notifications:
-                print(notification)
+            if notification_system.notifications:
+                for notification in notification_system.notifications:
+                    print(notification)
+            else:
+                print("No notifications available.")
+    
             notify = input("Add a notification? (yes/no): ")
             if notify.lower() == 'yes':
                 message = input("Enter the notification message: ")
-                notification_system.set_notification(message)
-                print("Notification added successfully!")
+            notification_system.set_notification(message)
+            print("Notification added successfully!")
 
         elif choice == "11":
             # Payment methods
