@@ -32,10 +32,10 @@ def main():
     # Initialize other objects
     finance_tracker = FinanceTracker(user)
     converter = CurrencyConverter()
-    notification_system = NotificationSystem(message="Welcome to the Finance Tracker", recipient=name)
+    notification_system = NotificationSystem("Welcome!", user.get_name())
     payment_method = PaymentMethod()
     tax_calculator = TaxCalculator(tax_rate=0.15)  # Example tax rate
-    #goal_reward = GoalReward()
+    goal_reward = GoalReward(goal_amount=0, reward=None)
     investments = []
     recurring_expenses = []
 

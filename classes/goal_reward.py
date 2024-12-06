@@ -1,7 +1,7 @@
 # Siyum's Code
 
 class GoalReward:
-    def __init__(self, goal_amount, reward):
+    def __init__(self, goal_amount=0, reward=None):
         self.goal_amount = goal_amount
         self.reward = reward
 
