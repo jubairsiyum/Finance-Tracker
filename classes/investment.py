@@ -1,4 +1,4 @@
-# Siyum's Code
+# Mahir's Code
 
 class Investment:
     def __init__(self, amount, returns):

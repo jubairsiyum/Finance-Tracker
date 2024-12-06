@@ -1,4 +1,4 @@
-# Siyum's Code
+# Mahir's Code
 
 class GoalReward:
     def __init__(self, goal_amount=0, reward=None):
