@@ -1,18 +1,30 @@
 # Shakib's Code
 
 class NotificationSystem:
-    def __init__(self, message: str, recipient: str):
-        """Initialize the notification with a message and recipient."""
+    def __init__(self, message: str = "", recipient: str = ""):
+        """Initialize the notification system with optional default message and recipient."""
         self.message: str = message
         self.recipient: str = recipient
-        self.notifications: list[str] = []  # List to store notifications
+        self.notifications: list[str] = []  # List to store all notifications
     
     def set_notification(self, message: str):
-        """Add a notification to the list."""
-        self.notifications.append(message)
+        """Add a custom notification to the list."""
+        self.notifications.append(f"Custom: {message}")
+
+    def add_system_notification(self, message: str):
+        """Add a system-generated notification to the list."""
+        self.notifications.append(f"System: {message}")
+
+    def get_notifications(self) -> list[str]:
+        """Retrieve all notifications."""
+        return self.notifications
+
+    def clear_notifications(self):
+        """Clear all notifications."""
+        self.notifications = []
 
     def send_notification(self) -> str:
-        """Send the notification."""
+        """Send the current notification."""
         return f"Notification sent to {self.recipient}: {self.message}"
 
     def update_message(self, new_message: str) -> str:
@@ -24,12 +36,6 @@ class NotificationSystem:
         """Update the recipient."""
         self.recipient = new_recipient
         return f"Recipient updated to: {self.recipient}"
-
-    def get_details(self) -> str:
-        """Return notification details."""
-        return f"Recipient: {self.recipient}, Message: {self.message}"
-
-    # Additional Methods
 
     def send_reminder(self, event: str, time: str) -> str:
         """Send a reminder for an event."""
@@ -46,3 +52,4 @@ class NotificationSystem:
     def send_update(self, update_type: str, content: str) -> str:
         """Send an update."""
         return f"UPDATE ({update_type}) for {self.recipient}: {content}"
+
