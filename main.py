@@ -1,19 +1,20 @@
 # Merge all classes, create objects, previewing the final result
-
-
+import numpy as np
 from classes.user import User
 from classes.finance_tracker import FinanceTracker
 from classes.transaction import Transaction
 from classes.category import Category
 from classes.currency_converter import CurrencyConverter
 from classes.notification_system import NotificationSystem
-from classes.payment_method import PaymentMethod
+from classes.payment_method import PaymentMethod, PaymentMethodDetails
 from classes.recurring_expense import RecurringExpense
 from classes.tax_calculator import TaxCalculator
 from classes.investment import Investment
 from classes.goal_reward import GoalReward
 
+
 def main():
+    global message
     print("Welcome to the Finance Tracker!")
 
     # User Registration/Login
@@ -23,8 +24,6 @@ def main():
     currency = input("Enter your preferred currency (e.g., USD, EUR, GBP): ")
     password = input("Set your account password: ")
 
-
-    
     # Create User object
     user = User(name, income, currency, password)
     print(f"\nAccount created successfully for {user.get_name()}!")
@@ -69,6 +68,7 @@ def main():
                 category = Category(category_name, budget_limit)
                 finance_tracker.categories.append(category)
 
+            # Using NumPy for handling transaction data in array
             transaction = Transaction(amount, category_name, date)
             finance_tracker.add_transaction(transaction)
             print("Transaction added successfully!")
@@ -76,14 +76,17 @@ def main():
         elif choice == "2":
             # View all transactions
             print("\n--- Transactions ---")
-            for txn in finance_tracker.transactions:
-                print(f"Amount: {txn.get_amount()} | Category: {txn.category} | Date: {txn.date}")
+            transactions_array = np.array(
+                [(txn.get_amount(), txn.category, txn.date) for txn in finance_tracker.transactions])
+            for txn in transactions_array:
+                print(f"Amount: {txn[0]} | Category: {txn[1]} | Date: {txn[2]}")
 
         elif choice == "3":
             # Manage categories
             print("\n--- Categories ---")
-            for cat in finance_tracker.categories:
-                print(f"Category: {cat.get_name()} | Budget Limit: {cat.budget_limit}")
+            categories_array = np.array([(cat.get_name(), cat.budget_limit) for cat in finance_tracker.categories])
+            for cat in categories_array:
+                print(f"Category: {cat[0]} | Budget Limit: {cat[1]}")
             modify = input("Would you like to modify a category? (yes/no): ")
             if modify.lower() == 'yes':
                 category_name = input("Enter the category name to modify: ")
@@ -147,30 +150,58 @@ def main():
                 print(f"Error: {e}")
 
         elif choice == "10":
-        # Notifications
+            # Notifications
             print("\n--- Notifications ---")
             if notification_system.notifications:
                 for notification in notification_system.notifications:
                     print(notification)
             else:
                 print("No notifications available.")
-    
+
             notify = input("Add a notification? (yes/no): ")
             if notify.lower() == 'yes':
                 message = input("Enter the notification message: ")
             notification_system.set_notification(message)
             print("Notification added successfully!")
 
+
         elif choice == "11":
+
             # Payment methods
+
             print("\n--- Payment Methods ---")
-            for method in payment_method.methods:
-                print(f"- {method}")
-            add_method = input("Add a payment method? (yes/no): ")
-            if add_method.lower() == 'yes':
-                method = input("Enter payment method: ")
-                payment_method.add_method(method)
-                print("Payment method added successfully!")
+
+            if not payment_method.methods:
+
+                print("No payment methods available.")
+
+            else:
+
+                print("Available payment methods:")
+
+                for method in payment_method.methods:
+                    print(f"- {method.name} (Description: {method.description}, Active: {method.is_active})")
+
+            add_method = input("Add a payment method? (yes/no): ").strip().lower()
+
+            if add_method == 'yes':
+
+                method_name = input("Enter payment method name: ").strip()
+
+                method_description = input("Enter payment method description: ").strip()
+
+                # Create a PaymentMethodDetails object
+
+                new_method = PaymentMethodDetails(name=method_name, description=method_description)
+
+                payment_method.add_method(new_method)
+
+                print(f"Payment method '{method_name}' added successfully!")
+
+            else:
+
+                print("Returning to the main menu.")
+
 
         elif choice == "12":
             print("Exiting the Finance Tracker. Goodbye!")
@@ -178,6 +209,7 @@ def main():
 
         else:
             print("Invalid choice. Please try again.")
+
 
 if __name__ == "__main__":
     main()
