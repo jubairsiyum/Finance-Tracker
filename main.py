@@ -2,7 +2,7 @@
 import numpy as np
 from classes.user import User
 from classes.finance_tracker import FinanceTracker
-from classes.transaction import Transaction
+from classes.transaction import Transaction, TransactionManager
 from classes.category import Category
 from classes.currency_converter import CurrencyConverter
 from classes.notification_system import NotificationSystem
@@ -30,6 +30,7 @@ def main():
 
     # Initialize other objects
     finance_tracker = FinanceTracker(user)
+    transaction_manager = TransactionManager()
     converter = CurrencyConverter()
     notification_system = NotificationSystem("Welcome!", user.get_name())
     payment_method = PaymentMethod()
@@ -80,6 +81,7 @@ def main():
                 [(txn.get_amount(), txn.category, txn.date) for txn in finance_tracker.transactions])
             for txn in transactions_array:
                 print(f"Amount: {txn[0]} | Category: {txn[1]} | Date: {txn[2]}")
+        
 
         elif choice == "3":
             # Manage categories
