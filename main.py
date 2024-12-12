@@ -150,7 +150,7 @@ class FinanceApp:
         self.financial_goal["progress"] = progress
         print(f"Goal: {self.financial_goal['goal']}, Progress: {self.financial_goal['progress']}")
         if progress >= self.financial_goal["goal"]:
-            print("Congratulations! You've reached your financial goal!")
+            print("Warning! You've reached your financial goal!")
 
 
     def add_recurring_expense(self, amount, interval, description):
